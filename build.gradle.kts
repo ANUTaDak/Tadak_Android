@@ -2,4 +2,7 @@
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.hilt.android) apply false
+
+    id("org.jlleitschuh.gradle.ktlint") version "11.6.1" apply false
 }
