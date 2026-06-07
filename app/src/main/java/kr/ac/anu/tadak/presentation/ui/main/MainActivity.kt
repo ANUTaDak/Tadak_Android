@@ -1,4 +1,4 @@
-package kr.ac.anu.tadak.presentation.ui
+package kr.ac.anu.tadak.presentation.ui.main
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
