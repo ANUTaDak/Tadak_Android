@@ -16,6 +16,9 @@
         android:theme="@style/Theme.TaDak"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.ui.result.ResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.check.CheckActivity"
             android:exported="false" />
         <activity

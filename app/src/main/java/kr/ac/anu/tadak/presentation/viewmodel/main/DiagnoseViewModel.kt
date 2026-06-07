@@ -33,7 +33,7 @@ class DiagnoseViewModel @Inject constructor(
         viewModelScope.launch {
             // 🚨 주의: 로그인 시 받은 실제 토큰을 넣어주어야 합니다!
             // (보통 SharedPreferences나 DataStore에서 꺼내옵니다)
-            val token = "여기에_저장된_토큰_입력"
+            val token = "test123"
 
             val result = tireRepository.analyzeTire(token, imageFile)
 

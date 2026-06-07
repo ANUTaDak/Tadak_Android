@@ -15,6 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kr.ac.anu.tadak.databinding.ActivityCheckBinding
+import kr.ac.anu.tadak.presentation.ui.result.ResultActivity
 import kr.ac.anu.tadak.presentation.viewmodel.main.DiagnoseUiState
 import kr.ac.anu.tadak.presentation.viewmodel.main.DiagnoseViewModel
 import java.io.File
@@ -59,39 +60,33 @@ class CheckActivity : AppCompatActivity() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.diagnoseState.collect { state ->
                     when (state) {
-                        is DiagnoseUiState.Idle -> { }
+                        is DiagnoseUiState.Idle -> {}
 
                         is DiagnoseUiState.Loading -> {
-                            // 💡 분석 중: 프로그레스 바(로딩 바) 띄우기
-                            // (XML에 id가 progressBar인 로딩 UI가 있다고 가정합니다)
-                            binding.progressBar.visibility = View.VISIBLE
+
                         }
 
                         is DiagnoseUiState.Success -> {
-                            binding.progressBar.visibility = View.GONE
-
-                            // 💡 분석 완료! 서버에서 받은 점수와 상태를 들고 ResultActivity로 이동
-                            val intent = Intent(this@CheckActivity, ResultActivity::class.java).apply {
-                                putExtra("SCORE", state.result.score)
-                                putExtra("STATUS", state.result.status)
-                            }
+                            // 💡 progressBar 지움! 바로 결과 화면으로 이동
+                            val intent =
+                                Intent(this@CheckActivity, ResultActivity::class.java).apply {
+                                    putExtra("SCORE", state.result.score)
+                                    putExtra("STATUS", state.result.status)
+                                }
                             startActivity(intent)
-
-                            // 🚨 이동 후 현재 '분석 중' 화면은 백스택에서 지워줍니다.
-                            // 그래야 결과 화면에서 뒤로가기를 눌렀을 때 엉뚱하게 이 화면이 다시 나오지 않습니다.
                             finish()
                         }
 
                         is DiagnoseUiState.Error -> {
-                            binding.progressBar.visibility = View.GONE
-                            Toast.makeText(this@CheckActivity, state.message, Toast.LENGTH_SHORT).show()
-
-                            // 에러가 났으니 이 화면을 닫고 메인으로 돌아갑니다.
+                            // 💡 progressBar 지움! 에러 띄우고 메인으로 복귀
+                            Toast.makeText(this@CheckActivity, state.message, Toast.LENGTH_SHORT)
+                                .show()
                             finish()
                         }
                     }
                 }
             }
+
         }
     }
 }
