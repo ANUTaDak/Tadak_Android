@@ -1,5 +1,6 @@
 package kr.ac.anu.tadak.presentation.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -8,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import kr.ac.anu.tadak.R
 import kr.ac.anu.tadak.databinding.ActivityMainBinding
+import kr.ac.anu.tadak.presentation.ui.check.CheckActivity
 import kr.ac.anu.tadak.presentation.viewmodel.main.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +26,15 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        binding.btnCheck.setOnClickListener {
+            val intent = Intent(this@MainActivity, CheckActivity::class.java)
+            startActivity(intent)
         }
     }
 }
