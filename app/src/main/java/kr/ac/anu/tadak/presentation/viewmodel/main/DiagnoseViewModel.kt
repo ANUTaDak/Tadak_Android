@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kr.ac.anu.tadak.data.local.TokenManager
 import kr.ac.anu.tadak.data.remote.TireAnalysisResponse
 import kr.ac.anu.tadak.data.repository.TireRepository
 import java.io.File
@@ -21,7 +22,8 @@ sealed class DiagnoseUiState {
 
 @HiltViewModel
 class DiagnoseViewModel @Inject constructor(
-    private val tireRepository: TireRepository
+    private val tireRepository: TireRepository,
+    private val tokenManager: TokenManager
 ) : ViewModel() {
 
     private val _diagnoseState = MutableStateFlow<DiagnoseUiState>(DiagnoseUiState.Idle)
@@ -31,9 +33,12 @@ class DiagnoseViewModel @Inject constructor(
         _diagnoseState.value = DiagnoseUiState.Loading // 💡 로딩 시작!
 
         viewModelScope.launch {
-            // 🚨 주의: 로그인 시 받은 실제 토큰을 넣어주어야 합니다!
-            // (보통 SharedPreferences나 DataStore에서 꺼내옵니다)
-            val token = "test123"
+            val token = tokenManager.getToken()
+
+            if (token == null) {
+                _diagnoseState.value = DiagnoseUiState.Error("토큰이 없습니다.")
+                return@launch
+            }
 
             val result = tireRepository.analyzeTire(token, imageFile)
 
