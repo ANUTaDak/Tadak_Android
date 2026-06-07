@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="tadak_blue">#0088FF</color>
+    <color name="tadak_green">#39E278</color>
+    <color name="tadak_orange">#FA8508</color>
+    <color name="tadak_yellow">#FFB300</color>
 </resources>
