@@ -5,15 +5,327 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".presentation.ui.main.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_bar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_app_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="TaDak"
+            android:textColor="@color/tadak_blue"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@id/iv_logo"
+            app:layout_constraintTop_toTopOf="@id/iv_logo" />
+
+        <TextView
+            android:id="@+id/tv_app_sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="타이어 상태 진단 시스템"
+            android:textColor="#8E8E8E"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/tv_app_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_app_title" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="홍길동님"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_app_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_info"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_main_box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_bar">
+
+        <ImageView
+            android:id="@+id/iv_tire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/tire"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="내 차 상태"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/iv_tire"
+            app:layout_constraintTop_toTopOf="@id/iv_tire" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="마지막 진단 2026.04.15"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="@id/tv_text"
+            app:layout_constraintTop_toBottomOf="@id/tv_text" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginEnd="33dp"
+            android:background="@drawable/bg_state"
+            app:layout_constraintBottom_toBottomOf="@id/iv_tire"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_text">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_check"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bg_check_btn"
+        app:layout_constraintEnd_toStartOf="@id/btn_history"
+        app:layout_constraintStart_toStartOf="@id/layout_info"
+        app:layout_constraintTop_toBottomOf="@id/layout_info">
+
+        <ImageView
+            android:id="@+id/ic_check"
+            android:layout_width="15dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="37dp"
+            android:src="@drawable/ic_check"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="진단하기"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ic_check"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_history"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="40dp"
+        android:background="@drawable/bg_history_btn"
+        app:layout_constraintEnd_toEndOf="@id/layout_info"
+        app:layout_constraintStart_toEndOf="@id/btn_check"
+        app:layout_constraintTop_toTopOf="@id/btn_check">
+
+        <ImageView
+            android:id="@+id/ic_history"
+            android:layout_width="15dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="37dp"
+            android:src="@drawable/ic_history"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="기록보기"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ic_history"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_state"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/bg_main_box"
+        app:layout_constraintEnd_toEndOf="@id/layout_info"
+        app:layout_constraintStart_toStartOf="@id/layout_info"
+        app:layout_constraintTop_toBottomOf="@id/btn_check">
+
+        <ImageView
+            android:id="@+id/iv_tire_info"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_tire"
+            app:layout_constraintEnd_toStartOf="@id/iv_gray_tire2"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_gray_tire2"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:src="@drawable/ic_gray_tire"
+            app:layout_constraintEnd_toStartOf="@id/iv_gray_tire3"
+            app:layout_constraintStart_toEndOf="@id/iv_tire_info"
+            app:layout_constraintTop_toTopOf="@id/iv_tire_info" />
+
+        <ImageView
+            android:id="@+id/iv_gray_tire3"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:src="@drawable/ic_gray_tire"
+            app:layout_constraintEnd_toStartOf="@id/iv_gray_tire1"
+            app:layout_constraintStart_toEndOf="@id/iv_gray_tire2"
+            app:layout_constraintTop_toTopOf="@id/iv_tire_info" />
+
+        <ImageView
+            android:id="@+id/iv_gray_tire1"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:src="@drawable/ic_gray_tire"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_gray_tire3"
+            app:layout_constraintTop_toTopOf="@id/iv_tire_info" />
+
+        <TextView
+            android:id="@+id/tv_tire_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="타이어"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/iv_tire_info"
+            app:layout_constraintStart_toStartOf="@id/iv_tire_info"
+            app:layout_constraintTop_toBottomOf="@id/iv_tire_info" />
+
+        <TextView
+            android:id="@+id/tv_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="정상"
+            android:textColor="#22C55E"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="@id/tv_tire_state"
+            app:layout_constraintStart_toStartOf="@id/tv_tire_state"
+            app:layout_constraintTop_toBottomOf="@id/tv_tire_state" />
+
+        <TextView
+            android:id="@+id/tv_prepare1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="준비중"
+            android:textColor="#BEBEBE"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/iv_gray_tire1"
+            app:layout_constraintStart_toStartOf="@id/iv_gray_tire1"
+            app:layout_constraintTop_toBottomOf="@id/iv_gray_tire1" />
+
+        <TextView
+            android:id="@+id/tv_prepare2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="준비중"
+            android:textColor="#BEBEBE"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/iv_gray_tire2"
+            app:layout_constraintStart_toStartOf="@id/iv_gray_tire2"
+            app:layout_constraintTop_toBottomOf="@id/iv_gray_tire2" />
+
+        <TextView
+            android:id="@+id/tv_prepare3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="준비중"
+            android:textColor="#BEBEBE"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@id/iv_gray_tire3"
+            app:layout_constraintStart_toStartOf="@id/iv_gray_tire3"
+            app:layout_constraintTop_toBottomOf="@id/iv_gray_tire3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_history_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/pretendard_medium"
+        android:text="최근 진단 기록"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/layout_info"
+        app:layout_constraintTop_toBottomOf="@id/layout_state" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_history"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/bg_main_box"
+        app:layout_constraintEnd_toEndOf="@id/layout_info"
+        app:layout_constraintStart_toStartOf="@id/layout_info"
+        app:layout_constraintTop_toBottomOf="@id/tv_history_title">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
