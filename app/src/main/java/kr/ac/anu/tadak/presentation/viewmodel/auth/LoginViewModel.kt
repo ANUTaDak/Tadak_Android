@@ -24,8 +24,8 @@ class LoginViewModel @Inject constructor(
     private val _loginState = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
     val loginState: StateFlow<LoginUiState> = _loginState
 
-    fun login(id: String, password: String) {
-        if (id.isBlank() || password.isBlank()) {
+    fun login(id: String, pw: String) {
+        if (id.isBlank() || pw.isBlank()) {
             _loginState.value = LoginUiState.Error("아이디와 비밀번호를 입력해주세요.")
             return
         }
@@ -33,7 +33,7 @@ class LoginViewModel @Inject constructor(
         _loginState.value = LoginUiState.Loading
 
         viewModelScope.launch {
-            val result = authRepository.login(id, password)
+            val result = authRepository.login(id, pw)
 
             result.onSuccess { response ->
                 _loginState.value = LoginUiState.Success(response.token)
