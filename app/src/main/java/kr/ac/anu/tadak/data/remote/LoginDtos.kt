@@ -2,7 +2,7 @@ package kr.ac.anu.tadak.data.remote
 
 data class LoginRequest(
     val id: String,
-    val password: String
+    val pw: String
 )
 
 data class LoginResponse(

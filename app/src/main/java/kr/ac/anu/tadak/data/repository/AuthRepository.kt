@@ -10,9 +10,9 @@ class AuthRepository @Inject constructor(
 ) {
 
     // ViewModel에서 호출할 로그인 함수
-    suspend fun login(id: String, password: String): Result<LoginResponse> {
+    suspend fun login(id: String, pw: String): Result<LoginResponse> {
         return try {
-            val request = LoginRequest(id = id, password = password)
+            val request = LoginRequest(id = id, pw = pw)
             val response = authApi.login(request)
 
             if (response.isSuccessful && response.body() != null) {
