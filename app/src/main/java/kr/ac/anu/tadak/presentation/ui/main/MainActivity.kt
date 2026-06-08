@@ -2,25 +2,34 @@ package kr.ac.anu.tadak.presentation.ui.main
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import kr.ac.anu.tadak.databinding.ActivityMainBinding
 import kr.ac.anu.tadak.presentation.ui.check.CheckActivity
+import kr.ac.anu.tadak.presentation.viewmodel.main.MainViewModel
 import java.io.File
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    // 💡 뷰모델(DianoseViewModel)은 CheckActivity로 이사 갔으므로 여기서 삭제했습니다!
+    private val viewModel: MainViewModel by viewModels()
 
-    // 💡 1. 갤러리(Photo Picker) 세팅
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri != null) {
             // 갤러리에서 사진을 골랐을 때
@@ -49,16 +58,54 @@ class MainActivity : AppCompatActivity() {
         }
 
         setupListeners()
+        observeViewModel()
+
+        val username = viewModel.getUsername()
+        binding.tvName.text = "${username}님"
     }
 
     private fun setupListeners() {
         binding.btnCheck.setOnClickListener {
-            // 💡 3. 버튼을 누르면 화면을 바로 넘기지 않고, 일단 갤러리를 띄웁니다!
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
     }
 
-    // 💡 4. Uri를 File로 변환해주는 유틸리티 함수 (클래스 내부에 두셔도 되고 외부에 두셔도 됩니다)
+    private fun observeViewModel() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.latestResult.collect { cachedData ->
+                    if (cachedData != null) {
+                        val result = cachedData.response
+                        val dateText = cachedData.dateString
+
+                        binding.tvDate.text = "마지막 진단 $dateText"
+
+                        val scoreInt = (result.score * 100).toInt()
+                        val statusText = when(result.status) {
+                            "normal", "정상" -> "양호"
+                            "warning", "주의" -> "주의"
+                            "danger", "bad", "위험" -> "위험"
+                            else -> "위험"
+                        }
+
+                        binding.tvStateText.text = statusText
+                        binding.tvStateNum.text = scoreInt.toString()
+
+                        val colorStr = when(statusText) {
+                            "양호" -> "#22C55E"
+                            "주의" -> "#FF9500"
+                            else -> "#E74C3C"
+                        }
+                        binding.layoutCircle.backgroundTintList = ColorStateList.valueOf(Color.parseColor(colorStr))
+
+                        binding.tvState.text = statusText
+                        binding.tvState.setTextColor(Color.parseColor(colorStr))
+                    }
+                }
+            }
+        }
+    }
+
     private fun uriToFile(context: Context, uri: Uri): File? {
         return try {
             val inputStream = context.contentResolver.openInputStream(uri) ?: return null

@@ -23,6 +23,9 @@ class AuthRepository @Inject constructor(
 
                 tokenManager.saveToken(loginData.token)
 
+                val safeUserName = loginData.name ?: "사용자"
+                tokenManager.saveUsername(safeUserName)
+
                 Result.success(loginData)
             } else {
                 Result.failure(Exception("로그인 실패: 에러 코드 ${response.code()}"))

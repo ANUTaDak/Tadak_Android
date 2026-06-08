@@ -1,16 +1,32 @@
 package kr.ac.anu.tadak.data.repository
 
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kr.ac.anu.tadak.data.remote.TireAnalysisResponse
 import kr.ac.anu.tadak.data.remote.TireApi
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
+import javax.inject.Singleton
 
+data class CachedDiagnostic(
+    val response: TireAnalysisResponse,
+    val dateString: String
+)
+
+@Singleton
 class TireRepository @Inject constructor(
     private val tireApi: TireApi
 ) {
+    private val _latestResult = MutableStateFlow<CachedDiagnostic?>(null)
+    val latestResult: StateFlow<CachedDiagnostic?> = _latestResult.asStateFlow()
+
     suspend fun analyzeTire(token: String, imageFile: File): Result<TireAnalysisResponse> {
         return try {
             // 1. File을 RequestBody로 변환
@@ -23,6 +39,12 @@ class TireRepository @Inject constructor(
             val response = tireApi.analyzeTire("Bearer $token", body)
 
             if (response.isSuccessful && response.body() != null) {
+                val result = response.body()!!
+
+                val today = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()).format(Date())
+
+                _latestResult.value = CachedDiagnostic(result, today)
+
                 Result.success(response.body()!!)
             } else {
                 Result.failure(Exception("분석 실패: 에러 코드 ${response.code()}"))

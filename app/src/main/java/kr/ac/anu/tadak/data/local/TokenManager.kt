@@ -22,8 +22,16 @@ class TokenManager @Inject constructor(
         return prefs.getString("USER_TOKEN", null)
     }
 
-    // 로그아웃 시 토큰 지우기
+    fun saveUsername(username: String) {
+        prefs.edit().putString("USER_NAME", username).apply()
+    }
+
+    fun getUsername(): String? {
+        return prefs.getString("USER_NAME", null)
+    }
+
+    // 로그아웃 시 전체 삭제
     fun clearToken() {
-        prefs.edit().remove("USER_TOKEN").apply()
+        prefs.edit().clear().apply()
     }
 }

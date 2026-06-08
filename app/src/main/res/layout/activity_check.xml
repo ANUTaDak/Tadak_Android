@@ -116,7 +116,7 @@
             android:layout_height="36dp"
             android:background="@drawable/bg_bulb_circle"
             android:padding="8dp"
-            android:src="@drawable/ic_bulb" />
+            android:src="@drawable/bulb" />
 
         <LinearLayout
             android:layout_width="wrap_content"
