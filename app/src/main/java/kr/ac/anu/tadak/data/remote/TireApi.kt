@@ -13,5 +13,5 @@ interface TireApi {
     suspend fun analyzeTire(
         @Header("Authorization") token: String,
         @Part image: MultipartBody.Part
-        ): Response<TireAnalysisResponse>
+    ): Response<TireAnalysisResponse>
 }

@@ -32,10 +32,10 @@ class JoinViewModel @Inject constructor(
         val isPwMatched = pw == pwCheck
 
         _isButtonEnabled.value = id.isNotBlank() &&
-                pw.isNotBlank() &&
-                pwCheck.isNotBlank() &&
-                name.isNotBlank() &&
-                isPwMatched
+            pw.isNotBlank() &&
+            pwCheck.isNotBlank() &&
+            name.isNotBlank() &&
+            isPwMatched
     }
 
     fun register(id: String, pw: String, name: String) {

@@ -27,7 +27,7 @@ import kr.ac.anu.tadak.presentation.viewmodel.auth.LoginViewModel
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private val viewModel : LoginViewModel by viewModels()
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +43,6 @@ class LoginActivity : AppCompatActivity() {
         viewSets()
         setupListeners()
         observeViewModel()
-
     }
 
     private fun viewSets() {
@@ -101,5 +100,4 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
 }

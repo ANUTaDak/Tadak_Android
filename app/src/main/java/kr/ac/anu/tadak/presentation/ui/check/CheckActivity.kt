@@ -2,7 +2,6 @@ package kr.ac.anu.tadak.presentation.ui.check
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -63,7 +62,6 @@ class CheckActivity : AppCompatActivity() {
                         is DiagnoseUiState.Idle -> {}
 
                         is DiagnoseUiState.Loading -> {
-
                         }
 
                         is DiagnoseUiState.Success -> {
@@ -86,7 +84,6 @@ class CheckActivity : AppCompatActivity() {
                     }
                 }
             }
-
         }
     }
 }

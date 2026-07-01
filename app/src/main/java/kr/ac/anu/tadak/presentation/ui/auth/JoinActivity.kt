@@ -96,7 +96,6 @@ class JoinActivity : AppCompatActivity() {
     private fun observeViewModel() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-
                 launch {
                     viewModel.isButtonEnabled.collect { isEnabled ->
                         binding.btnJoin.isEnabled = isEnabled
@@ -119,7 +118,6 @@ class JoinActivity : AppCompatActivity() {
                         }
                     }
                 }
-
             }
         }
     }

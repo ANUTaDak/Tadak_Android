@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                         binding.tvDate.text = "마지막 진단 $dateText"
 
                         val scoreInt = (result.score * 100).toInt()
-                        val statusText = when(result.status) {
+                        val statusText = when (result.status) {
                             "normal", "정상" -> "양호"
                             "warning", "주의" -> "주의"
                             "danger", "bad", "위험" -> "위험"
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                         binding.tvStateText.text = statusText
                         binding.tvStateNum.text = scoreInt.toString()
 
-                        val colorStr = when(statusText) {
+                        val colorStr = when (statusText) {
                             "양호" -> "#22C55E"
                             "주의" -> "#FF9500"
                             else -> "#E74C3C"
